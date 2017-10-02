@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameMaster : MonoBehaviour {
@@ -48,7 +49,11 @@ public class GameMaster : MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.R)) ResetPosition();
-	}
+        if (Input.GetKey(KeyCode.Alpha0)) SceneManager.LoadScene(0);
+        if (Input.GetKey(KeyCode.Alpha1)) SceneManager.LoadScene(1);
+        if (Input.GetKey(KeyCode.Alpha2)) SceneManager.LoadScene(2);
+        if (Input.GetKey(KeyCode.Alpha3)) SceneManager.LoadScene(3);
+    }
 
     void HoldObject ()//ref Transform objTrans)
     {

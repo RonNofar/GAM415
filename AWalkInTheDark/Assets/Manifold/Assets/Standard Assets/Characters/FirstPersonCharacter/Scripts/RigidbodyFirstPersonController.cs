@@ -9,6 +9,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
         public float maxSpeed = 100;
+        [SerializeField] Manifold.ManifoldPlayerHandler MPHandler;
+
         [Serializable]
         public class MovementSettings
         {
@@ -130,8 +132,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
-            //Debug.Log("Velocity: "+m_RigidBody.velocity.y);
-            RotateView();
+            if (MPHandler.isIntro)
+            {
+                if (MPHandler.isCameraRotation)
+                {
+                    //Debug.Log("Velocity: "+m_RigidBody.velocity.y);
+                    RotateView();
+                }
+            }
+            else
+            {
+                RotateView();
+            }
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
@@ -142,65 +154,68 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
-            GroundCheck();
-            Vector2 input = GetInput();
-
-            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+            if (!MPHandler.isIntro)
             {
-                // always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = cam.transform.forward*input.y + cam.transform.right*input.x;
-                desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+                GroundCheck();
+                Vector2 input = GetInput();
 
-                desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
-                desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
-                desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
-                if (m_RigidBody.velocity.sqrMagnitude <
-                    (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
+                if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
                 {
-                    m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+                    // always move along the camera forward as it is the direction that it being aimed at
+                    Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+
+                    desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
+                    desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
+                    desiredMove.y = desiredMove.y * movementSettings.CurrentTargetSpeed;
+                    if (m_RigidBody.velocity.sqrMagnitude <
+                        (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed))
+                    {
+                        m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                    }
                 }
-            }
 
-            if (m_IsGrounded)
-            {
-                m_RigidBody.drag = 5f;
+                if (m_IsGrounded)
+                {
+                    m_RigidBody.drag = 5f;
 
-                if (m_Jump)
+                    if (m_Jump)
+                    {
+                        m_RigidBody.drag = 0f;
+                        m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
+                        m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+                        m_Jumping = true;
+                    }
+
+                    if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
+                    {
+                        m_RigidBody.Sleep();
+                    }
+                }
+                else
                 {
                     m_RigidBody.drag = 0f;
-                    m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
-                    m_Jumping = true;
-                }
+                    if (m_PreviouslyGrounded && !m_Jumping)
+                    {
+                        StickToGroundHelper();
+                    }
+                    //Debug.Log("input: "+input);
 
-                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
-                {
-                    m_RigidBody.Sleep();
-                }
-            }
-            else
-            {
-                m_RigidBody.drag = 0f;
-                if (m_PreviouslyGrounded && !m_Jumping)
-                {
-                    StickToGroundHelper();
-                }
-                //Debug.Log("input: "+input);
-                
                     float hoverSpeed = 100f;
-                //if (m_Jump) m_RigidBody.AddForce(Vector3.up * hoverSpeed);
+                    //if (m_Jump) m_RigidBody.AddForce(Vector3.up * hoverSpeed);
                     m_RigidBody.AddRelativeForce(
                         new Vector3(
-                            input.x * hoverSpeed, 
-                            m_Jump ? hoverSpeed : 0f, 
-                            input.y * hoverSpeed), 
+                            input.x * hoverSpeed,
+                            m_Jump ? hoverSpeed : 0f,
+                            input.y * hoverSpeed),
                             ForceMode.Force);
-            }
-            m_Jump = false;
+                }
+                m_Jump = false;
 
-            if(m_RigidBody.velocity.magnitude > maxSpeed)
-            {
-                m_RigidBody.velocity = m_RigidBody.velocity.normalized * maxSpeed;
+                if (m_RigidBody.velocity.magnitude > maxSpeed)
+                {
+                    m_RigidBody.velocity = m_RigidBody.velocity.normalized * maxSpeed;
+                }
             }
         }
 

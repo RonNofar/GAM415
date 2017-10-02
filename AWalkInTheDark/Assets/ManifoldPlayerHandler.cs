@@ -24,6 +24,11 @@ namespace Manifold
         private static readonly string[] axises = { "X", "Y", "Z" };
         private static readonly string[] directions = { "Pos", "Neg" };
 
+        [Header("Intro")]
+        public bool isIntro = false;
+        public bool isCameraRotation = false;
+
+        [Header("Debugging")]
         [SerializeField] bool _DEBUG = true;
 
         private void Awake()
@@ -75,9 +80,16 @@ namespace Manifold
 
         void Update()
         {
-            CheckAndUpdateTransformPosition(playerTransform, axises[0]);
-            CheckAndUpdateTransformPosition(playerTransform, axises[1]);
-            CheckAndUpdateTransformPosition(playerTransform, axises[2]);
+            if (!isIntro)
+            {
+                CheckAndUpdateTransformPosition(playerTransform, axises[0]);
+                CheckAndUpdateTransformPosition(playerTransform, axises[1]);
+                CheckAndUpdateTransformPosition(playerTransform, axises[2]);
+            }
+            else
+            {
+                CheckIntroTransformPosition(playerTransform);
+            }
         }
 
         public void CheckAndUpdateTransformPosition(Transform objectTransform, string axis)
@@ -185,6 +197,16 @@ namespace Manifold
             {
                 if (_DEBUG) Debug.Log("Neg");
                 playerTransform.position = transformVec_Neg;
+            }
+        }
+
+        void CheckIntroTransformPosition(Transform objectTransform)
+        {
+            if (_DEBUG)
+                Debug.Log("In CheckIntro: "+ objectTransform.position.y + " < " + boundsCenter.y + " + " + boundsSize_Y + " | " + (objectTransform.position.y < (boundsCenter.y + boundsSize_Y)));
+            if (objectTransform.position.y < (boundsCenter.y + boundsSize_Y))
+            {
+                isIntro = false;
             }
         }
     }
