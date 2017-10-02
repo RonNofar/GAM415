@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Invector-3rdPersonController/Melee Combat/DemoScenes/vMeleeCombat_DemoScene.unity
+- path: Assets/Manifold/Assets/mainTest.unity
   isLoaded: 1
   isActive: 1
