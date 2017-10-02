@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: f1db263a882a49342b23d5cfc82da049
+timeCreated: 1506708573
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Semplicit?
+  fontNames:
+  - Semplicit?
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 257ff2e54b41087439fc61151f88565a, type: 3}
+  - {fileID: 12800000, guid: c1f29fd849e6f454c9722502a165f921, type: 3}
+  - {fileID: 12800000, guid: 1d2e8d0967ad4614ca131ca58190f696, type: 3}
+  - {fileID: 12800000, guid: 2caa6d6c5f86b644da8f76a8634defbe, type: 3}
+  - {fileID: 12800000, guid: da00f13db1e26f54890db464b12374ea, type: 3}
+  - {fileID: 12800000, guid: 0fa6267d1f2fd36498db42fdae251f16, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
