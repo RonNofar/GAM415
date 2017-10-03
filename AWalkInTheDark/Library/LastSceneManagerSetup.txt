@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/spirals.unity
+- path: Assets/Manifold/Assets/mainTest.unity
   isLoaded: 1
   isActive: 1

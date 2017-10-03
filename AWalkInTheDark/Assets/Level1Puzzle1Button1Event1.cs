@@ -11,6 +11,7 @@ namespace Manifold.Level1
         //private CheckButton checkButton;
 
         private Transform toScale;
+        [SerializeField] Transform secondToScale;
 
         [SerializeField]
         private float totalTime = 2f;
@@ -23,6 +24,7 @@ namespace Manifold.Level1
         void Start()
         {
             toScale = GetComponent<Transform>();
+            secondToScale.localScale = new Vector3(secondToScale.localScale.x, 0, secondToScale.localScale.z);
         }
 
         void FixedUpdate()
@@ -49,11 +51,18 @@ namespace Manifold.Level1
         {
             //Debug.Log("Triggered: " + gameObject.transform.parent);
             StartCoroutine(
-                ScaleDownward(toScale, totalTime, scaler));
+                ScaleDownward(toScale, totalTime, scaler, false));
+            StartCoroutine(
+                ScaleDownward(secondToScale, totalTime, scaler, true));
+        }
+
+        public void TriggerEvent2()
+        {
+            
         }
 
         IEnumerator ScaleDownward(Transform tran, 
-            float totalTime, float scaler)
+            float totalTime, float scaler, bool isInverse)
         {
             float startTime = Time.time;
             float i = 0;
@@ -61,11 +70,13 @@ namespace Manifold.Level1
             while (i < 1)
             {
                 i = (Time.time - startTime) / totalTime;
-                temp = Mathf.Clamp(((1 / i) - 1) / scaler, 0, 1);
+                temp = Mathf.Clamp(((isInverse ? -1 : 1) / (i - (isInverse ? 1 : 0)) - 1) / scaler, 0, 1);
                 tran.localScale = new Vector3(
                     tran.localScale.x, 
                     temp, 
                     tran.localScale.z);
+
+                Debug.Log(temp+" | "+tran.gameObject.name);
                 yield return null;
             }
 
