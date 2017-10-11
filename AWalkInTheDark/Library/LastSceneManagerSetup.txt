@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Manifold/Assets/mainTest.unity
+- path: Assets/Manifold/Assets/mainTest (LEVELTRANFER).unity
   isLoaded: 1
   isActive: 1
