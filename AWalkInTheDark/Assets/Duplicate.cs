@@ -8,7 +8,7 @@ namespace Manifold
     [ExecuteInEditMode]
     public class Duplicate : MonoBehaviour
     {
-        [SerializeField] DuplicateHandler dupHand;
+        public DuplicateHandler dupHand;
         [HideInInspector]
         public Dictionary<int, UnityAction> acts = new Dictionary<int, UnityAction>();
 

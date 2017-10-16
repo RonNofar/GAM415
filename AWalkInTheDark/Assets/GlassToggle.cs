@@ -10,21 +10,21 @@ namespace Manifold
 
         [Header("Scale Event")]
         [SerializeField] Transform tranToScale;
-        [SerializeField] bool X;
-        [SerializeField] bool Y;
-        [SerializeField] bool Z;
-        [SerializeField] bool toOne;
-        [SerializeField] float time = 1f;
+        public bool X;
+        public bool Y;
+        public bool Z;
+        public bool toOne;
+        public float time = 1f;
 
         private Vector3 originalScale;
 
         [Header("Material Event")]
         [SerializeField] new Renderer renderer;
-        [SerializeField] Material disabledMat;
+        public Material disabledMat;
 
         private void Start()
         {
-            originalScale = tranToScale.localScale;
+            
             if (renderer == null)
                 renderer = GetComponent<Renderer>();
         }
@@ -32,13 +32,14 @@ namespace Manifold
         public override void Action()
         {
             if (!isOn)
-                StartCoroutine(ScaleObject(time, toOne));
-            ChangeMaterial(disabledMat);
+                StartCoroutine(ScaleObject(tranToScale, time, toOne, X, Y, Z)); isOn = true;
+            ChangeMaterial(renderer, disabledMat);
         }
 
-        IEnumerator ScaleObject(float time, bool toOne)
+        static public IEnumerator ScaleObject(Transform tran, float time, bool toOne, bool X, bool Y, bool Z)
         {
-            isOn = true;
+            Vector3 originalScale = tran.localScale;
+
             float startTime = Time.time;
             float i = 0;
 
@@ -49,23 +50,23 @@ namespace Manifold
                 if (toOne) temp = 1 - temp;
 
                 Mathf.Clamp(temp, 0, 1);
-                tranToScale.localScale = new Vector3(
-                    X ? originalScale.x * temp : tranToScale.localScale.x,
-                    Y ? originalScale.y * temp : tranToScale.localScale.y,
-                    Z ? originalScale.z * temp : tranToScale.localScale.z);
+                tran.localScale = new Vector3(
+                    X ? originalScale.x * temp : tran.localScale.x,
+                    Y ? originalScale.y * temp : tran.localScale.y,
+                    Z ? originalScale.z * temp : tran.localScale.z);
 
                 yield return null;
             }
 
             if (!toOne)
             {
-                tranToScale.gameObject.SetActive(false);
+                tran.gameObject.SetActive(false);
             }
         }
 
-        public void ChangeMaterial(Material mat)
+        static public void ChangeMaterial(Renderer ren, Material mat)
         {
-            renderer.material = mat;
+            ren.material = mat;
         }
     }
 }

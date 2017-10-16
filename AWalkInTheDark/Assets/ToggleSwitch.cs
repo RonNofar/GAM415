@@ -6,7 +6,6 @@ namespace Manifold
 {
     public class ToggleSwitch : MonoBehaviour
     {
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")

@@ -28,12 +28,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
+        public void LookRotation(Transform character, Transform camera, bool reverse)
         {
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
-            m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
+            m_CharacterTargetRot *= Quaternion.Euler (0f, (reverse ? -1f : 1f) * yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
 
             if(clampVerticalRotation)

@@ -89,7 +89,7 @@ namespace Manifold.LevelTransfer
             playerTransform.localPosition = LevelTransferHandler.Instance.HeldRelativePosition;
             playerTransform.localRotation = LevelTransferHandler.Instance.HeldRelativeRotation;
 
-            //UnParent(playerTransform);
+            UnParent(playerTransform);
 
             if (isSameLevelTest)
                 otherPortal.StartCoroutine(otherPortal.SetCoolDown(1f));

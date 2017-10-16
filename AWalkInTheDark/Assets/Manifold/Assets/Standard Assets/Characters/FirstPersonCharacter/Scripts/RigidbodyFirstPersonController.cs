@@ -74,7 +74,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             public float groundCheckDistance = 0.01f; // distance for checking if the controller is grounded ( 0.01f seems to work best for this )
             public float stickToGroundHelperDistance = 0.5f; // stops the character
-            public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
+            public float slowDownRate = 1000f; // rate at which the controller comes to a stop when there is no input
             public bool airControl; // can the user control the direction that is being moved in the air
             [Tooltip("set it to 0.1 or more if you get stuck in wall")]
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
@@ -163,10 +163,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            Vector2 input = GetInput();
+            Debug.Log((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded));
+            //Debug.Log(m_IsGrounded);
             if (!MPHandler.isIntro)
             {
                 GroundCheck();
-                Vector2 input = GetInput();
+                /*Vector2 */input = GetInput();
 
                 if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
                 {
@@ -180,8 +183,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     if (m_RigidBody.velocity.sqrMagnitude <
                         (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed))
                     {
+                        Debug.Log(SlopeMultiplier());
                         m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
                     }
+                    
                 }
 
                 if (m_IsGrounded)
@@ -192,7 +197,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     {
                         m_RigidBody.drag = 0f;
                         m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-                        m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+                        m_RigidBody.AddForce(new Vector3(0f, (m_reversedGravity ? -1f : 1f) * movementSettings.JumpForce, 0f), ForceMode.Impulse);
                         m_Jumping = true;
                     }
 
@@ -212,12 +217,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                     float hoverSpeed = 100f;
                     //if (m_Jump) m_RigidBody.AddForce(Vector3.up * hoverSpeed);
-                    m_RigidBody.AddRelativeForce(
+                    /*m_RigidBody.AddRelativeForce(
                         new Vector3(
                             input.x * hoverSpeed,
                             m_Jump ? hoverSpeed : 0f,
                             input.y * hoverSpeed),
-                            ForceMode.Force);
+                            ForceMode.Force);*/
                 }
                 m_Jump = false;
 
@@ -234,7 +239,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private float SlopeMultiplier()
         {
-            float angle = Vector3.Angle(m_GroundContactNormal, Vector3.up);
+            float angle = Vector3.Angle(m_GroundContactNormal, m_reversedGravity ? Vector3.down : Vector3.up);
             return movementSettings.SlopeCurveModifier.Evaluate(angle);
         }
 
@@ -242,11 +247,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void StickToGroundHelper()
         {
             RaycastHit hitInfo;
-            if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
+            if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), m_reversedGravity ? Vector3.up : Vector3.down, out hitInfo,
                                    ((m_Capsule.height/2f) - m_Capsule.radius) +
                                    advancedSettings.stickToGroundHelperDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
-                if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
+                if (Mathf.Abs(Vector3.Angle(hitInfo.normal, m_reversedGravity ? Vector3.down : Vector3.up)) < 85f)
                 {
                     m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
                 }
@@ -275,7 +280,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            mouseLook.LookRotation (transform, cam.transform);
+            mouseLook.LookRotation (transform, cam.transform, m_reversedGravity);
 
             if (m_IsGrounded || advancedSettings.airControl)
             {
@@ -299,7 +304,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else
             {
                 m_IsGrounded = false;
-                m_GroundContactNormal = Vector3.up;
+                m_GroundContactNormal = m_reversedGravity ? Vector3.down : Vector3.up;
             }
             if (!m_PreviouslyGrounded && m_IsGrounded && m_Jumping)
             {
@@ -318,7 +323,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void ApplyReversedGravity()
         {
             m_RigidBody.useGravity = false;
-            m_RigidBody.AddForce(-m_GravityForce);
+            m_RigidBody.AddForce(-m_GravityForce, ForceMode.Acceleration);
         }
         #endregion
     }
