@@ -93,6 +93,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
 
+        private bool m_reversedGravity = false;
+        private Vector3 m_GravityForce;
 
         public Vector3 Velocity
         {
@@ -127,6 +129,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
+
+            m_GravityForce = Physics.gravity;
 
             if (MPHandler == null)
             {
@@ -222,6 +226,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.velocity = m_RigidBody.velocity.normalized * maxSpeed;
                 }
             }
+
+            if (m_reversedGravity)
+                ApplyReversedGravity();
         }
 
 
@@ -283,7 +290,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_PreviouslyGrounded = m_IsGrounded;
             RaycastHit hitInfo;
-            if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
+            if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), m_reversedGravity ? Vector3.up : Vector3.down, out hitInfo,
                                    ((m_Capsule.height/2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
                 m_IsGrounded = true;
@@ -299,5 +306,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jumping = false;
             }
         }
+
+        #region Gravity
+        public void ReverseGravity()
+        {
+            Debug.Log("INTHERE");
+            m_reversedGravity = !m_reversedGravity;
+            Debug.Log(m_reversedGravity);
+        }
+
+        private void ApplyReversedGravity()
+        {
+            m_RigidBody.useGravity = false;
+            m_RigidBody.AddForce(-m_GravityForce);
+        }
+        #endregion
     }
 }
