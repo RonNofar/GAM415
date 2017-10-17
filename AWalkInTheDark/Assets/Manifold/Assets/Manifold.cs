@@ -78,8 +78,15 @@ namespace Manifold
 
             if (isFake)
             {
-                CreateManifold();
-                if (isOriginalFake) FakeNews();
+                try
+                {
+                    CreateManifold();
+                    if (isOriginalFake) FakeNews();
+                }
+                catch
+                {
+                    Debug.Log("FATAL ERROR: Something went wrong with CreateManifold().");
+                }
             }
         }
 

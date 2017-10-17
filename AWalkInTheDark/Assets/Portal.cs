@@ -27,16 +27,17 @@ namespace Manifold.LevelTransfer
         private void Awake()
         {
             //otherTransform = otherButton.gameObject.transform;
-            if (isOutput) // finish this part <<==
-            {
-                TransferPlayerInLevel(ref transferParent);
-            }
+            
         }
 
         // Use this for initialization
         void Start()
         {
-            relativeOrigin = transform.position;
+            if (isOutput) // finish this part <<==
+            {
+                TransferPlayerInLevel(ref transferParent);
+            }
+            //relativeOrigin = transform.position;
         }
 
         // Update is called once per frame

@@ -27,6 +27,7 @@ f4503373fd0c8ee0a0468cb974ad46bb Assembly-CSharp.dll:.vHeadTrack
 25a8032d233df72c368030798802d97d Assembly-CSharp.dll:.ExtrudeRandomEdges
 800cc0d6be47445acdd3db7ef7be6990 Assembly-CSharp.dll:.vPlatform
 5711196c43db006c91a0953a4826e0cf Assembly-CSharp.dll:Invector.ItemManager.vOpenCloseInventoryTrigger
+1813cc3a324d050d3a68538d55dcb4ca Assembly-CSharp.dll:Manifold.LevelTransfer.LevelTranferButton
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -119,6 +120,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 5667fb372c2b292ccdec2a31aaac98fa UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 c24a21b131bfa67be1162db2cba4b52b UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 e366c612f7e4ed59444bf30e8123161d Assembly-CSharp.dll:.vCollectableStandalone
+5e2cc38b006bad8f20dd25893dea455d Assembly-CSharp.dll:Manifold.LevelTransfer.Portal
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -166,6 +168,8 @@ f81683280c98ff220513eed22dae673c Assembly-CSharp.dll:Invector.ItemManager.vChang
 8f03593a49b3b454a5671f7418c4d108 Assembly-CSharp.dll:Invector.CharacterController.vThirdPersonInput
 3eb36897b718bd60cdac274b5eaa0ba3 Assembly-CSharp.dll:Manifold.DuplicateHandler
 4df86f437a61b08c14fd0adff88ddf71 Assembly-CSharp.dll:UnityStandardAssets.Utility.ActivateTrigger
+3432c2bb07adc99910da23e30df838d6 Assembly-CSharp.dll:Manifold.GravityReverser
+08e2a321bca26d319146bd9edf5ca185 Assembly-CSharp.dll:Manifold.GlassToggleDuplicate
 88ed6bf82c21e1ec7bbb5571418f5d7c Assembly-CSharp.dll:.vPunchingBag
 a2efb0db652b8114d1ae7dd9a600d626 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.InputAxisScrollbar
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FatherLordEditor
@@ -182,6 +186,7 @@ a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp.dll:UnityStandardAssets.CrossPl
 fe05a083b372c99be1bfe4f9ddbdfb34 Assembly-CSharp.dll:.vLoadLevel
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl
 a90e94673f50d2237c1b971c138660c6 Assembly-CSharp.dll:UnityStandardAssets.Utility.AutoMoveAndRotate
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Manifold.Preload.DevPreload
 0702e7831ba8b2ba59de560eae7130c9 Assembly-CSharp.dll:.vCollectMeleeControl
 eccfba1d6da395e21a78e42e3bb10092 Assembly-CSharp.dll:Invector.ItemManager.vItemManager
 0fec275c97519f99acfb255cdf26e010 Assembly-CSharp.dll:Invector.ItemManager.vItemAmountWindow
@@ -191,6 +196,7 @@ eccfba1d6da395e21a78e42e3bb10092 Assembly-CSharp.dll:Invector.ItemManager.vItemM
 a8e15825b82a4a4336165c02c7dd8e8e Assembly-CSharp.dll:.vComment
 fb41a590b4e40d12bb1493719de7be2e Assembly-CSharp.dll:Invector.ItemManager.vContainsItemTrigger
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.vDestroyOnSleep
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Manifold.ToggleSwitch
 2af310aee22bff13bb539e82a9560a84 Assembly-CSharp.dll:.v_AISphereSensor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
 8e9a9777937294e2785fc0e594eddee7 Assembly-CSharp.dll:Invector.ItemManager.vEquipAreaControl
@@ -213,6 +219,9 @@ d05d1726290c11f0086c3ed9a61ae76d ProBuilderCore-Unity5.dll:.pb_Entity
 be298e9989a57b3144bbdecf37b84436 ProBuilderCore-Unity5.dll:ProBuilder2.Common.pb_PolyShape
 8965b639c314e17576abd37f3ff28cd2 ProBuilderCore-Unity5.dll:ProBuilder2.Common.pb_PreferenceDictionary
 b6994eef3ccb7ef36dbcb0ded4de4503 ProBuilderCore-Unity5.dll:ProBuilder2.Common.pb_Renderable
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Manifold.Preload.DDOL
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Manifold.LevelTransfer.LevelTransferHandler
+4d74caf30cd819a1d3557c8259ee191e Assembly-CSharp.dll:Manifold.GlassToggle
 7a0f48fb129e472af6552a847bfd13a8 Assembly-CSharp.dll:.vDestroyGameObject
 710ccc491b9c98e31b59ee5dc30148dd Assembly-CSharp.dll:Manifold.Duplicate
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -240,7 +249,8 @@ ef85aa98adf21bcabe8ce90352c118af Assembly-CSharp.dll:Invector.v_AIAnimator
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.vAudioSurfaceControl
 447fabec49c65120fd32a4f0201bcd87 Assembly-CSharp.dll:.vPoint
 7643b63f8e7136143d456b34ec980861 Assembly-CSharp.dll:Invector.ItemManager.vItem
-992ac6c3c9e39d3fcbf1ac646e7df81c Assembly-CSharp.dll:UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController
+09b1c46a5dfec34ac0db2d7872b7ba0a Assembly-CSharp.dll:UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Manifold.Level1Puzzle1Button2Event1
 e8a40e5f2f521ecba41c49d9c1509a41 Assembly-CSharp.dll:Invector.CharacterController.vThirdPersonController
 33728502085db1414f91e789aab4f61b Assembly-CSharp.dll:.vRotateObject
 e54810d86cf89eb032842043873aa937 Assembly-CSharp.dll:Invector.CharacterController.vRagdoll
@@ -275,7 +285,7 @@ db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp.dll:UnityStandardAssets.Utility
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.vFootStepTrigger
 1abb39020658298081e6ed78794a3c94 Assembly-CSharp.dll:.vLockOn
 9f5c09d51d18fe50c3e234d7b84b1e51 Assembly-CSharp.dll:.vPickupItem
-b648f94e744d7bc682f987115f1b6673 Assembly-CSharp.dll:Manifold.Level1.Level1Puzzle1Button1Event1
+698aef0a74d6d721185038e8db99f12e Assembly-CSharp.dll:Manifold.Level1.Level1Puzzle1Button1Event1
 2efb2f771b1d4b097cfcdfdf081a25e4 Assembly-CSharp.dll:.vItemAttributes
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 35be45324e5e94b33f0c9c0baba1a589 Assembly-CSharp.dll:.vPlayRandomClip
@@ -305,6 +315,7 @@ b27f786ebf24c10b342c59ba3b243e9e Assembly-CSharp.dll:.vGetTransform
 d5f1dee3ce398f0dffc297989423bf60 Assembly-CSharp.dll:.vSimpleDoor
 32dcc1dca94294515dfea07e896e1a84 Assembly-CSharp.dll:ProBuilder2.Examples.RuntimeEdit
 97cbcedbb8458738449a7d16cf964dfe Assembly-CSharp.dll:Invector.v_AICompanion
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Manifold.Preload.App
 7d51cf9a538aab7d2388d0b7eaf164e4 Assembly-CSharp.dll:Invector.ItemManager.vItemListData
 a9cf5f162ec4875398cb00d399599edd Assembly-CSharp.dll:.vTriggerGenericAction
 f04607dc9dcca4090484488d6566b536 Assembly-CSharp.dll:.LightControl

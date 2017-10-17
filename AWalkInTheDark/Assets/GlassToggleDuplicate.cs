@@ -17,6 +17,7 @@ namespace Manifold
 
         public override void Act1()
         {
+            if (debugCheck) Debug.Log("In Act1");
             StartCoroutine(
                 GlassToggle.ScaleObject(
                     scaleTran, 

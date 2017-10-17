@@ -96,6 +96,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_reversedGravity = false;
         private Vector3 m_GravityForce;
 
+        public float m_AirControlScaler = 0.5f;
+
         public Vector3 Velocity
         {
             get { return m_RigidBody.velocity; }
@@ -164,7 +166,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void FixedUpdate()
         {
             Vector2 input = GetInput();
-            Debug.Log((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded));
+            //Debug.Log((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded));
             //Debug.Log(m_IsGrounded);
             if (!MPHandler.isIntro)
             {
@@ -177,13 +179,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
-                    desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
-                    desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
-                    desiredMove.y = desiredMove.y * movementSettings.CurrentTargetSpeed;
+                    desiredMove.x = (desiredMove.x * movementSettings.CurrentTargetSpeed) * (m_IsGrounded ? 1f : m_AirControlScaler);
+                    desiredMove.z = (desiredMove.z * movementSettings.CurrentTargetSpeed) * (m_IsGrounded ? 1f : m_AirControlScaler);
+                    desiredMove.y = (desiredMove.y * movementSettings.CurrentTargetSpeed) * (m_IsGrounded ? 1f : m_AirControlScaler);
                     if (m_RigidBody.velocity.sqrMagnitude <
                         (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed))
                     {
-                        Debug.Log(SlopeMultiplier());
+                        //Debug.Log(SlopeMultiplier());
                         m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
                     }
                     
@@ -209,6 +211,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 else
                 {
                     m_RigidBody.drag = 0f;
+                    if (Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon)
+                    {
+                        m_RigidBody.drag = advancedSettings.slowDownRate;
+                    }
                     if (m_PreviouslyGrounded && !m_Jumping)
                     {
                         StickToGroundHelper();
@@ -315,14 +321,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
         #region Gravity
         public void ReverseGravity()
         {
-            Debug.Log("INTHERE");
-            m_reversedGravity = !m_reversedGravity;
-            Debug.Log(m_reversedGravity);
+            if (m_reversedGravity) // TURN OFF
+            {
+                m_reversedGravity = false;
+                m_RigidBody.useGravity = true;
+            }
+            else                   // TURN ON
+            {
+                m_reversedGravity = true;
+                m_RigidBody.useGravity = false;
+            }
+            
         }
 
         private void ApplyReversedGravity()
         {
-            m_RigidBody.useGravity = false;
             m_RigidBody.AddForce(-m_GravityForce, ForceMode.Acceleration);
         }
         #endregion

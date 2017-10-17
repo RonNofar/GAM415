@@ -9,7 +9,7 @@ namespace Manifold
     {
         public void OnStartButton()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 }

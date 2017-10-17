@@ -34,6 +34,11 @@ namespace Manifold
             if (!isOn)
                 StartCoroutine(ScaleObject(tranToScale, time, toOne, X, Y, Z)); isOn = true;
             ChangeMaterial(renderer, disabledMat);
+
+            try
+            {
+                GetComponent<DuplicateHandler>().InvokeActionInDuplicates(1);
+            } catch { }
         }
 
         static public IEnumerator ScaleObject(Transform tran, float time, bool toOne, bool X, bool Y, bool Z)
