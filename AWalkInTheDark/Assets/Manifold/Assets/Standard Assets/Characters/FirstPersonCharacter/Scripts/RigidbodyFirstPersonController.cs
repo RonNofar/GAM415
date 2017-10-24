@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -18,6 +20,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float ForwardSpeed = 8.0f;   // Speed when walking forward
             public float BackwardSpeed = 4.0f;  // Speed when walking backwards
             public float StrafeSpeed = 4.0f;    // Speed when walking sideways
+            public float WalkMultiplier = 1.5f;   // Speed when sprinting
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
@@ -98,6 +101,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public float m_AirControlScaler = 0.5f;
 
+        public Transform slerpCamera;
+        [SerializeField] float slerpTime = 1f;
+
+        int tapCount = 0;
+        float endTime = 0;
+        [SerializeField] float dashForce = 100f;
+        [SerializeField] float coolDownTimer = 0.5f;
+        
+
         public Vector3 Velocity
         {
             get { return m_RigidBody.velocity; }
@@ -160,6 +172,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Jump = true;
             }
+            if (!m_IsGrounded)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    tapCount += 1;
+                    endTime = Time.time + coolDownTimer;
+
+                    if (tapCount == 2) // DOUBLE TAP
+                    {
+                        //Debug.Log("BOOP");
+                        m_RigidBody.AddForce(cam.transform.forward * dashForce, ForceMode.Impulse);
+                        tapCount = 0;
+                    }
+                    //Debug.Log(tapCount);
+                }
+                if (endTime < Time.time)
+                {
+                    tapCount = 0;
+                }
+            }
+
         }
 
 
@@ -194,6 +227,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_IsGrounded)
                 {
                     m_RigidBody.drag = 5f;
+                    movementSettings.CurrentTargetSpeed *= movementSettings.WalkMultiplier;
 
                     if (m_Jump)
                     {
@@ -211,6 +245,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 else
                 {
                     m_RigidBody.drag = 0f;
+                    movementSettings.CurrentTargetSpeed /= movementSettings.WalkMultiplier;
+
                     if (Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon)
                     {
                         m_RigidBody.drag = advancedSettings.slowDownRate;
@@ -221,7 +257,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     }
                     //Debug.Log("input: "+input);
 
-                    float hoverSpeed = 100f;
+                    //float hoverSpeed = 100f;
                     //if (m_Jump) m_RigidBody.AddForce(Vector3.up * hoverSpeed);
                     /*m_RigidBody.AddRelativeForce(
                         new Vector3(
@@ -301,7 +337,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_PreviouslyGrounded = m_IsGrounded;
             RaycastHit hitInfo;
-            if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), m_reversedGravity ? Vector3.up : Vector3.down, out hitInfo,
+            if (Physics.SphereCast(transform.position + m_Capsule.center, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), m_reversedGravity ? Vector3.up : Vector3.down, out hitInfo,
                                    ((m_Capsule.height/2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
                 m_IsGrounded = true;
@@ -321,23 +357,67 @@ namespace UnityStandardAssets.Characters.FirstPerson
         #region Gravity
         public void ReverseGravity()
         {
+            StartCoroutine(SlerpCamera());
             if (m_reversedGravity) // TURN OFF
             {
                 m_reversedGravity = false;
                 m_RigidBody.useGravity = true;
+                m_Capsule.center = new Vector3(0, 0, 0);
             }
             else                   // TURN ON
             {
                 m_reversedGravity = true;
                 m_RigidBody.useGravity = false;
+                m_Capsule.center = new Vector3(0, 1, 0);
             }
-            
         }
 
         private void ApplyReversedGravity()
         {
             m_RigidBody.AddForce(-m_GravityForce, ForceMode.Acceleration);
         }
+
+        IEnumerator SlerpCamera()
+        {
+            Vector3 camera = slerpCamera.localEulerAngles;
+            float startTime = Time.time;
+            float i = 0;
+            bool firstHalf = !m_reversedGravity;
+            while (i < 1)
+            {
+                camera = slerpCamera.localEulerAngles;
+                i = (Time.time - startTime) / slerpTime;
+                float temp = firstHalf ? ClampedCos(i, 0, 180) : ClampedCos(i, 180, 360);
+                slerpCamera.localEulerAngles = new Vector3(
+                    slerpCamera.localEulerAngles.x,
+                    slerpCamera.localEulerAngles.y,
+                    temp);
+                yield return null;
+            }
+
+            if (firstHalf)
+                slerpCamera.localEulerAngles = new Vector3(
+                    slerpCamera.localEulerAngles.x,
+                    slerpCamera.localEulerAngles.y,
+                    180);
+            else
+                slerpCamera.localEulerAngles = new Vector3(
+                    slerpCamera.localEulerAngles.x,
+                    slerpCamera.localEulerAngles.y,
+                    0);
+        }
+
+        public float ClampedCos(float timeRatio, float startValue, float endValue)
+        {
+            float deltaValue = endValue - startValue;
+            return deltaValue / 2 + Mathf.Cos(timeRatio * Mathf.PI) * (-deltaValue / 2) + startValue;
+        }
         #endregion
+
+        private IEnumerator CoolDownAction(float time, UnityAction action)
+        {
+            yield return new WaitForSeconds(time);
+            action.Invoke();
+        }
     }
 }

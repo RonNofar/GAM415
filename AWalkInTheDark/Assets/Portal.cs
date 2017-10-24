@@ -90,17 +90,17 @@ namespace Manifold.LevelTransfer
             playerTransform.localPosition = LevelTransferHandler.Instance.HeldRelativePosition;
             playerTransform.localRotation = LevelTransferHandler.Instance.HeldRelativeRotation;
 
-            UnParent(playerTransform);
+            //UnParent(playerTransform);
 
             if (isSameLevelTest)
-                otherPortal.StartCoroutine(otherPortal.SetCoolDown(1f));
+                otherPortal.StartCoroutine(otherPortal.SetCoolDown(3f));
         }
 
         public IEnumerator SetCoolDown(float time)
         {
             isCoolingDown = true;
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(time);
 
             isCoolingDown = false;
         }

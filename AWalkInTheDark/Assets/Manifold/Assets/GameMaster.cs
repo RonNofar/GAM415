@@ -54,6 +54,8 @@ public class GameMaster : MonoBehaviour {
         if (Input.GetKey(KeyCode.Alpha2)) SceneManager.LoadScene(2);
         if (Input.GetKey(KeyCode.Alpha3)) SceneManager.LoadScene(3);
         if (Input.GetKey(KeyCode.Alpha4)) SceneManager.LoadScene(4);
+        if (Input.GetKey(KeyCode.Alpha5)) SceneManager.LoadScene(5);
+        if (Input.GetKey(KeyCode.Alpha6)) SceneManager.LoadScene(6);
     }
 
     void HoldObject ()//ref Transform objTrans)
