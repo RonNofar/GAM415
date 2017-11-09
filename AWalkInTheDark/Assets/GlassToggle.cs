@@ -22,6 +22,9 @@ namespace Manifold
         [SerializeField] new Renderer renderer;
         public Material disabledMat;
 
+        [Header("Light Event")]
+        [SerializeField] new Light light;
+
         private void Start()
         {
             
@@ -34,6 +37,7 @@ namespace Manifold
             if (!isOn)
                 StartCoroutine(ScaleObject(tranToScale, time, toOne, X, Y, Z)); isOn = true;
             ChangeMaterial(renderer, disabledMat);
+            ToggleLight(light, false);
 
             try
             {
@@ -72,6 +76,11 @@ namespace Manifold
         static public void ChangeMaterial(Renderer ren, Material mat)
         {
             ren.material = mat;
+        }
+
+        static public void ToggleLight(Light light, bool onOff)
+        {
+            light.enabled = onOff;
         }
     }
 }

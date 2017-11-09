@@ -8,6 +8,7 @@ namespace Manifold
 
         [SerializeField] Transform scaleTran;
         [SerializeField] Renderer rend;
+        [SerializeField] Light lit;
         private GlassToggle gToggle;
 
         void Start() {
@@ -27,6 +28,7 @@ namespace Manifold
                     gToggle.Y, 
                     gToggle.Z));
             GlassToggle.ChangeMaterial(rend, gToggle.disabledMat);
+            GlassToggle.ToggleLight(lit, false);
         }
     }
 }
