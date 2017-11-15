@@ -108,7 +108,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         float endTime = 0;
         [SerializeField] float dashForce = 100f;
         [SerializeField] float coolDownTimer = 0.5f;
-        
+        [SerializeField] float minMagnitude = 0.1f;
+
+
 
         public Vector3 Velocity
         {
@@ -237,7 +239,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         m_Jumping = true;
                     }
 
-                    if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
+                    if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < minMagnitude)
                     {
                         m_RigidBody.Sleep();
                     }

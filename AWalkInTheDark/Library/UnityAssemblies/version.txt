@@ -20,5 +20,6 @@ C:/Program Files/Unity 2017.1.0f3/Editor/Data/UnityExtensions/Unity/UnityHoloLen
 C:/Program Files/Unity 2017.1.0f3/Editor/Data/UnityExtensions/Unity/UnityPurchasing/Editor/UnityEditor.Purchasing.dll
 C:/Program Files/Unity 2017.1.0f3/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll
 C:/Program Files/Unity 2017.1.0f3/Editor/Data/Managed/UnityEditor.Graphs.dll
+C:/Program Files/Unity 2017.1.0f3/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 C:/Program Files/Unity 2017.1.0f3/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll
 C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll
