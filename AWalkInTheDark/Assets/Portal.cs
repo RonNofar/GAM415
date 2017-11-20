@@ -24,10 +24,17 @@ namespace Manifold.LevelTransfer
 
         private bool isCoolingDown;
 
+        public float cooldownTime = 2f;
+        public bool isSeeThrough;
+
+        private Collider col;
+        private MeshRenderer meshRenderer;
+
         private void Awake()
         {
             //otherTransform = otherButton.gameObject.transform;
-            
+            col = GetComponent<Collider>();
+            meshRenderer = GetComponent<MeshRenderer>();
         }
 
         // Use this for initialization
@@ -93,7 +100,14 @@ namespace Manifold.LevelTransfer
             //UnParent(playerTransform);
 
             if (isSameLevelTest)
-                otherPortal.StartCoroutine(otherPortal.SetCoolDown(3f));
+            {
+                otherPortal.StartCoroutine(otherPortal.SetCoolDown(cooldownTime));
+                if (isSeeThrough)
+                {
+                    otherPortal.IsTrigger(true);
+                    otherPortal.meshRenderer.enabled = false;
+                }
+            }
         }
 
         public IEnumerator SetCoolDown(float time)
@@ -103,6 +117,17 @@ namespace Manifold.LevelTransfer
             yield return new WaitForSeconds(time);
 
             isCoolingDown = false;
+            if (isSeeThrough)
+            {
+                Debug.Log("IS?");
+                IsTrigger(false);
+                meshRenderer.enabled = true;
+            }
+        }
+
+        public void IsTrigger(bool check)
+        {
+            col.isTrigger = check;
         }
     }
 }

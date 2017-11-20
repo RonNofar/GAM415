@@ -43,9 +43,9 @@ namespace Manifold
         private void FixedUpdate()
         {
             currentDistance = Vector3.Distance(transform.position, playerTransform.position);
-            distanceRatio = Mathf.Clamp01((currentDistance - minDistance) / maxDistance);
+            distanceRatio = Mathf.Clamp01((currentDistance - minDistance) / (maxDistance - minDistance));
 
-            Debug.Log("currentDistance: " + currentDistance + " | distanceRatio: " + distanceRatio);
+            //Debug.Log("currentDistance: " + currentDistance + " | distanceRatio: " + distanceRatio);
 
             if (distanceRatio == 0)
             {
@@ -64,11 +64,11 @@ namespace Manifold
                     emissionRateOverTimeRatio = 0;
             }
 
-            Debug.Log(emissionRateOverTimeRatio + " Ratio");
+            //Debug.Log(emissionRateOverTimeRatio + " Ratio");
 
             emissionRateOverTime = (emissionRateOverTimeRatio * (maxEmissionRateOverTime - minEmissionRateOverTime)) + minEmissionRateOverTime;
 
-            Debug.Log(emissionRateOverTime);
+            //Debug.Log(emissionRateOverTime);
 
             rightEmissionModule.rateOverTime = emissionRateOverTime;
             leftEmissionModule.rateOverTime = emissionRateOverTime;
