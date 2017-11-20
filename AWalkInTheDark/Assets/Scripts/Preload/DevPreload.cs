@@ -12,7 +12,10 @@ namespace Manifold.Preload
         {
             GameObject check = GameObject.Find("__app");
             if (check == null)
-            { UnityEngine.SceneManagement.SceneManager.LoadScene("_preload"); }
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("_preload");
+                App.Instance.loadScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            }
         }
     }
 }
