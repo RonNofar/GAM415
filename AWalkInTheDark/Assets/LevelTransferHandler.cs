@@ -21,7 +21,10 @@ namespace Manifold.LevelTransfer
         }
 
         public Vector3 HeldRelativePosition { get; set; }
+        public Vector3 HeldRelativeForward { get; set; }
         public Quaternion HeldRelativeRotation { get; set; }
+
+        public Vector3 HeldCameraRelativeForward { get; set; }
 
         // Use this for initialization
         void Start()

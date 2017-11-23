@@ -7,6 +7,7 @@ namespace Manifold.LevelTransfer
 {
     public class Portal : MonoBehaviour
     {
+        [SerializeField] bool isRelativeTeleport = true; // the original
         [SerializeField] Transform playerTransform;
         [SerializeField] Transform transferParent;
         [SerializeField] int nextScene;
@@ -73,14 +74,38 @@ namespace Manifold.LevelTransfer
 
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!isCoolingDown && !isOutput && other.tag == "MainCamera")
+            {
+                StoreRelativeValues(ref playerTransform);
+
+                if (!isSameLevelTest) SceneManager.LoadScene(nextScene);
+                else TransferPlayerInLevel(ref otherTransform);
+            }
+        }
+
+
         private void StoreRelativeValues(ref Transform tran)
         {
-            tran.SetParent(transferParent);
-            //tran = transferParent.GetChild(0);
-            LevelTransferHandler.Instance.HeldRelativePosition = tran.localPosition;
-            LevelTransferHandler.Instance.HeldRelativeRotation = tran.localRotation;
+            if (isRelativeTeleport)
+            {/*
+                tran.SetParent(transferParent);
+                //tran = transferParent.GetChild(0);
+                LevelTransferHandler.Instance.HeldRelativePosition = tran.localPosition;
+                LevelTransferHandler.Instance.HeldRelativeRotation = tran.localRotation;
+                */
+                LevelTransferHandler.Instance.HeldRelativePosition = transferParent.InverseTransformPoint(tran.position);
+                //LevelTransferHandler.Instance.HeldRelativeForward = transferParent.InverseTransformDirection(tran.forward);
 
-            Debug.Log(LevelTransferHandler.Instance.HeldRelativePosition + " | " + LevelTransferHandler.Instance.HeldRelativeRotation);
+                //LevelTransferHandler.Instance.HeldCameraRelativeForward = transferParent.InverseTransformDirection(playerTransform.gameObject.GetComponent<)
+            }
+            else
+            {
+                LevelTransferHandler.Instance.HeldRelativePosition = tran.position - transferParent.position;//transferParent.InverseTransformPoint(tran.position);
+            }
+
+            //Debug.Log(LevelTransferHandler.Instance.HeldRelativePosition + " | " + LevelTransferHandler.Instance.HeldRelativeRotation);
         }
 
         private void UnParent(Transform tran)
@@ -90,22 +115,34 @@ namespace Manifold.LevelTransfer
 
         private void TransferPlayerInLevel(ref Transform location)
         {
-            //Debug.Log("WAT");
-            UnParent(playerTransform);
-            playerTransform.SetParent(location);
+            if (isRelativeTeleport)
+            {
+                /*
+                //Debug.Log("WAT");
+                UnParent(playerTransform);
+                playerTransform.SetParent(location);
 
-            playerTransform.localPosition = LevelTransferHandler.Instance.HeldRelativePosition;
-            playerTransform.localRotation = LevelTransferHandler.Instance.HeldRelativeRotation;
+                playerTransform.localPosition = LevelTransferHandler.Instance.HeldRelativePosition;
+                playerTransform.localRotation = LevelTransferHandler.Instance.HeldRelativeRotation;
 
-            //UnParent(playerTransform);
+                UnParent(playerTransform);
+                */
+                playerTransform.position = location.TransformPoint(LevelTransferHandler.Instance.HeldRelativePosition);
+                //playerTransform.rotation = Quaternion.LookRotation(location.TransformDirection(LevelTransferHandler.Instance.HeldRelativeForward));
+            } 
+            else
+            {
+                //Debug.Log("location.position + LevelTransferHandler.Instance.HeldRelativePosition = " + (location.position + LevelTransferHandler.Instance.HeldRelativePosition) + " = " + location.position + " + " + LevelTransferHandler.Instance.HeldRelativePosition);
+                playerTransform.position = location.position + LevelTransferHandler.Instance.HeldRelativePosition;
+            }
 
             if (isSameLevelTest)
             {
                 otherPortal.StartCoroutine(otherPortal.SetCoolDown(cooldownTime));
                 if (isSeeThrough)
                 {
-                    otherPortal.IsTrigger(true);
-                    otherPortal.meshRenderer.enabled = false;
+                    otherPortal.IsCollider(true);
+                    //otherPortal.meshRenderer.enabled = false;
                 }
             }
         }
@@ -120,14 +157,14 @@ namespace Manifold.LevelTransfer
             if (isSeeThrough)
             {
                 Debug.Log("IS?");
-                IsTrigger(false);
-                meshRenderer.enabled = true;
+                IsCollider(false);
+                //meshRenderer.enabled = true;
             }
         }
 
-        public void IsTrigger(bool check)
+        public void IsCollider(bool check)
         {
-            col.isTrigger = check;
+            col.enabled = !check;
         }
     }
 }
