@@ -7,7 +7,7 @@ namespace Manifold.Preload
         static protected App _instance;
         static public App Instance { get { return _instance; } }
 
-        [HideInInspector] public string loadScene = null;
+        public string loadScene = "";
 
         private void Awake()
         {
@@ -22,7 +22,7 @@ namespace Manifold.Preload
 
         private void Start()
         {
-            if (loadScene == null)
+            if (loadScene == "")
                 UnityEngine.SceneManagement.SceneManager.LoadScene(1);
             else
                 UnityEngine.SceneManagement.SceneManager.LoadScene(loadScene);

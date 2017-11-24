@@ -14,7 +14,7 @@ namespace Manifold.Preload
             if (check == null)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("_preload");
-                App.Instance.loadScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+                //App.Instance.loadScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             }
         }
     }

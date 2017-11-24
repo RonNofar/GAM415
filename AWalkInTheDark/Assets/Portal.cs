@@ -7,9 +7,12 @@ namespace Manifold.LevelTransfer
 {
     public class Portal : MonoBehaviour
     {
+        [SerializeField] PlayerDirectionCheck _PDC;
         [SerializeField] bool isRelativeTeleport = true; // the original
+        [SerializeField] bool isOneSided = true;
+        public Vector3 faceNormal = Vector3.forward;
         [SerializeField] Transform playerTransform;
-        [SerializeField] Transform transferParent;
+        public Transform transferParent;
         [SerializeField] int nextScene;
 
         [SerializeField] bool isOutput = false;
@@ -76,12 +79,33 @@ namespace Manifold.LevelTransfer
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("In OnTriggerEnter in "+gameObject.name);
             if (!isCoolingDown && !isOutput && other.tag == "MainCamera")
             {
-                StoreRelativeValues(ref playerTransform);
+                Debug.Log("ontriggerenter tag is maincamera");
+                if (isOneSided)
+                {
+                    /*Debug.Log(faceNormal);
+                    Vector3 heading = playerTransform.position - transform.position;
+                    float dot = Vector3.Dot(heading, transform.TransformDirection(faceNormal));
+                    Debug.Log(heading);
+                    Debug.Log(transform.TransformDirection(faceNormal));
+                    Debug.Log(dot);*/
+                    if (_PDC.isPlayerNormal)
+                    {
+                        StoreRelativeValues(ref playerTransform);
 
-                if (!isSameLevelTest) SceneManager.LoadScene(nextScene);
-                else TransferPlayerInLevel(ref otherTransform);
+                        if (!isSameLevelTest) SceneManager.LoadScene(nextScene);
+                        else TransferPlayerInLevel(ref otherTransform);
+                    }
+                }
+                else
+                {
+                    StoreRelativeValues(ref playerTransform);
+
+                    if (!isSameLevelTest) SceneManager.LoadScene(nextScene);
+                    else TransferPlayerInLevel(ref otherTransform);
+                }
             }
         }
 
@@ -141,7 +165,7 @@ namespace Manifold.LevelTransfer
                 otherPortal.StartCoroutine(otherPortal.SetCoolDown(cooldownTime));
                 if (isSeeThrough)
                 {
-                    otherPortal.IsCollider(true);
+                    otherPortal.IsCollider(false);
                     //otherPortal.meshRenderer.enabled = false;
                 }
             }
@@ -156,15 +180,15 @@ namespace Manifold.LevelTransfer
             isCoolingDown = false;
             if (isSeeThrough)
             {
-                Debug.Log("IS?");
-                IsCollider(false);
+                Debug.Log("Cooldown = false, isCollider = false");
+                IsCollider(true);
                 //meshRenderer.enabled = true;
             }
         }
 
         public void IsCollider(bool check)
         {
-            col.enabled = !check;
+            col.enabled = check;
         }
     }
 }

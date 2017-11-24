@@ -48,6 +48,7 @@ public class GameMaster : MonoBehaviour {
             if (Input.GetButtonDown("Submit")) isHoldingPlayer = false; // NOTE: Breaks whole function because of no time delay.
         }
 
+        if (Input.GetKey(KeyCode.Escape)) Quit();
         if (Input.GetKey(KeyCode.R)) ResetPosition();
         if (Input.GetKey(KeyCode.Alpha0)) SceneManager.LoadScene(0);
         if (Input.GetKey(KeyCode.Alpha1)) SceneManager.LoadScene(1);
@@ -73,5 +74,10 @@ public class GameMaster : MonoBehaviour {
     void ResetPosition()
     {
         playerTransform.localPosition = initialCoords;
+    }
+
+    void Quit()
+    {
+        Application.Quit();
     }
 }
