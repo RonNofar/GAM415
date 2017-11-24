@@ -30,6 +30,7 @@ namespace Manifold.LevelTransfer
             if (other.tag == "MainCamera")
             {
                 CheckIfNormal();
+                associatedPortal._DPCHECK = true;
             }
         }
 
@@ -38,6 +39,15 @@ namespace Manifold.LevelTransfer
             if (other.tag == "MainCamera")
             {
                 CheckIfNormal();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "MainCamera")
+            {
+                associatedPortal._DPCHECK = false;
+                associatedPortal.isPreCollider = false;
             }
         }
 
@@ -59,7 +69,18 @@ namespace Manifold.LevelTransfer
                     associatedPortal.faceNormal));
 
             isPlayerNormal = (dot > 0);
-            Debug.Log(isPlayerNormal + " isPN | "+ dot);
+            //Debug.Log(isPlayerNormal + " isPN | "+ dot);
+
+            if (dot < 0)
+            {
+                //Debug.Log("dot<0");
+                associatedPortal.IsInvisible(true);
+                associatedPortal.isPreCollider = true;
+            } 
+            else
+            {
+                associatedPortal.isPreCollider = false;
+            }
         }
 
     }

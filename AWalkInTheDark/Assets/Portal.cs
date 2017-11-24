@@ -7,7 +7,9 @@ namespace Manifold.LevelTransfer
 {
     public class Portal : MonoBehaviour
     {
+        [SerializeField] bool test = true;
         [SerializeField] PlayerDirectionCheck _PDC;
+        [SerializeField] Camera cam;
         [SerializeField] bool isRelativeTeleport = true; // the original
         [SerializeField] bool isOneSided = true;
         public Vector3 faceNormal = Vector3.forward;
@@ -32,13 +34,17 @@ namespace Manifold.LevelTransfer
         public bool isSeeThrough;
 
         private Collider col;
-        private MeshRenderer meshRenderer;
+        private new Renderer renderer;
+
+        private bool isInvisible; // this is for the "Dan problem"
+        public bool isPreCollider; // ^^
+        public bool _DPCHECK = false; // whether to even check for ^^
 
         private void Awake()
         {
             //otherTransform = otherButton.gameObject.transform;
             col = GetComponent<Collider>();
-            meshRenderer = GetComponent<MeshRenderer>();
+            renderer = GetComponent<Renderer>();
         }
 
         // Use this for initialization
@@ -54,7 +60,22 @@ namespace Manifold.LevelTransfer
         // Update is called once per frame
         void Update()
         {
-
+            //if (gameObject.name == "PortalA (2)") Debug.Log("1" + " | " + gameObject.name);
+            if (isSeeThrough && cam != null)
+            {
+                //if (gameObject.name == "PortalA (2)") Debug.Log("2" + " | " + gameObject.name);
+                Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
+                if (!GeometryUtility.TestPlanesAABB(planes, col.bounds)/* && _DPCHECK*/)
+                { // if portal collider bounds in camera planes
+                    //if (gameObject.name == "PortalA (2)") Debug.Log("here? "+isInvisible+" | "+gameObject.name);
+                    if (!isPreCollider)
+                    {
+                        if (isInvisible)
+                            IsInvisible(false);
+                    }
+                }
+                if (!_DPCHECK) isPreCollider = false;
+            }
         }
         
         private void OnCollisionEnter(Collision other)
@@ -79,10 +100,10 @@ namespace Manifold.LevelTransfer
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("In OnTriggerEnter in "+gameObject.name);
+            // Debug.Log("In OnTriggerEnter in "+gameObject.name);
             if (!isCoolingDown && !isOutput && other.tag == "MainCamera")
             {
-                Debug.Log("ontriggerenter tag is maincamera");
+                //Debug.Log("ontriggerenter tag is maincamera");
                 if (isOneSided)
                 {
                     /*Debug.Log(faceNormal);
@@ -91,13 +112,14 @@ namespace Manifold.LevelTransfer
                     Debug.Log(heading);
                     Debug.Log(transform.TransformDirection(faceNormal));
                     Debug.Log(dot);*/
-                    if (_PDC.isPlayerNormal)
+                    if (_PDC.isPlayerNormal && !isInvisible)
                     {
                         StoreRelativeValues(ref playerTransform);
 
                         if (!isSameLevelTest) SceneManager.LoadScene(nextScene);
                         else TransferPlayerInLevel(ref otherTransform);
                     }
+                    isPreCollider = false;
                 }
                 else
                 {
@@ -166,9 +188,11 @@ namespace Manifold.LevelTransfer
                 if (isSeeThrough)
                 {
                     otherPortal.IsCollider(false);
+                    otherPortal.IsRenderer(true);
                     //otherPortal.meshRenderer.enabled = false;
                 }
             }
+
         }
 
         public IEnumerator SetCoolDown(float time)
@@ -180,15 +204,36 @@ namespace Manifold.LevelTransfer
             isCoolingDown = false;
             if (isSeeThrough)
             {
-                Debug.Log("Cooldown = false, isCollider = false");
+                //Debug.Log("Cooldown = false, isCollider = false");
                 IsCollider(true);
+                IsRenderer(true);
                 //meshRenderer.enabled = true;
             }
         }
 
+        public void IsInvisible(bool check)
+        {
+            //Debug.Log("IsInvisible=" + check + " | name: " + gameObject.name);
+            isInvisible = check;
+            //IsCollider(!check);
+            IsRenderer(!check);
+
+            if (check)
+                isPreCollider = true;
+        }
+
         public void IsCollider(bool check)
         {
+            //Debug.Log("IsCollider=" + check + " | name: " + gameObject.name);
             col.enabled = check;
+            //Debug.Log("col.enabled=" + col.enabled + " | name: " + gameObject.name);
+        }
+
+        public void IsRenderer(bool check)
+        {
+            //Debug.Log("IsRenderer=" + check + " | name: " + gameObject.name);
+            renderer.enabled = check;
+            //Debug.Log("renderer.enabled=" + renderer.enabled+" | name: "+gameObject.name);
         }
     }
 }
