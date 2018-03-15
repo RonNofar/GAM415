@@ -1,13 +1,13 @@
 Mono path[0] = 'C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Builds/171115/RNofar_ProofOfConcept_Data/Managed'
 Mono config path = 'C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Builds/171115/RNofar_ProofOfConcept_Data/Mono/etc'
 PlayerConnection initialized from C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Builds/171115/RNofar_ProofOfConcept_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55394
-Multi-casting "[IP] 192.168.56.1 [Port] 55394 [Flags] 3 [Guid] 3982174793 [EditorId] 3974768308 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-RQEOTDP) [Debug] 1" to [225.0.0.222:54997]...
-Waiting for connection from host on [0.0.0.0:55394]...
+PlayerConnection initialized network socket : 0.0.0.0 55246
+Multi-casting "[IP] 192.168.56.1 [Port] 55246 [Flags] 3 [Guid] 2409612560 [EditorId] 3974768308 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-RQEOTDP) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [0.0.0.0:55246]...
 Timed out. Continuing without host connection.
-Started listening to [0.0.0.0:55394]
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56793
-PlayerConnection already initialized - listening to [0.0.0.0:55394]
+Started listening to [0.0.0.0:55246]
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56560
+PlayerConnection already initialized - listening to [0.0.0.0:55246]
 Player data archive not found at `C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Builds/171115/RNofar_ProofOfConcept_Data/data.unity3d`, using local filesystem
 Initialize engine version: 2017.1.0f3 (472613c02cf7)
 GfxDevice: creating device client; threaded=1
@@ -16,7 +16,7 @@ Direct3D:
     Renderer: NVIDIA GeForce GTX 1060 6GB (ID=0x1c03)
     Vendor:   NVIDIA
     VRAM:     3072 MB
-    Driver:   23.21.13.8813
+    Driver:   21.21.13.7651
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Builds\171115\RNofar_ProofOfConcept_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Builds\171115\RNofar_ProofOfConcept_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -42,31 +42,31 @@ Platform assembly: C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Builds\171115\
 Loading C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Builds\171115\RNofar_ProofOfConcept_Data\Managed\Poly2Tri.dll into Unity Child Domain
 Platform assembly: C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Builds\171115\RNofar_ProofOfConcept_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Builds\171115\RNofar_ProofOfConcept_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.182 seconds
+- Completed reload, in  0.040 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.383564 ms
+UnloadTime: 1.328865 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2b10 -> priority: 1 
-  Thread -> id: 2eb4 -> priority: 1 
+  Thread -> id: 3390 -> priority: 1 
+  Thread -> id: e14 -> priority: 1 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.244330 ms
-System memory in use before: 50.1 MB.
-System memory in use after: 53.0 MB.
+UnloadTime: 0.245789 ms
+System memory in use before: 50.9 MB.
+System memory in use after: 53.9 MB.
 
 Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 85674.
-Total: 16.365374 ms (FindLiveObjects: 3.911104 ms CreateObjectMapping: 1.264317 ms MarkObjects: 8.071280 ms  DeleteObjects: 3.117578 ms)
+Total: 16.641820 ms (FindLiveObjects: 3.587646 ms CreateObjectMapping: 1.143976 ms MarkObjects: 8.879405 ms  DeleteObjects: 3.029697 ms)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 49.733206 ms
-System memory in use before: 54.4 MB.
-System memory in use after: 55.2 MB.
+UnloadTime: 82.278093 ms
+System memory in use before: 55.0 MB.
+System memory in use after: 55.8 MB.
 
 Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 27050.
-Total: 4.333394 ms (FindLiveObjects: 1.584134 ms CreateObjectMapping: 0.236307 ms MarkObjects: 2.450594 ms  DeleteObjects: 0.060900 ms)
+Total: 6.730756 ms (FindLiveObjects: 2.325515 ms CreateObjectMapping: 0.386552 ms MarkObjects: 3.951589 ms  DeleteObjects: 0.064546 ms)
 
-(-0.4, 1.0, -1.5) | (0.0, 0.0, 0.0, 1.0)
+(-0.1, 1.0, -1.5) | (0.0, 0.0, 0.0, 1.0)
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
@@ -76,7 +76,7 @@ Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Doc
  
 (Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
 
-(-0.3, 1.0, -1.5) | (0.0, 0.0, 0.0, 1.0)
+(-0.8, 1.0, -1.5) | (0.0, 0.0, 0.0, 1.0)
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
@@ -86,7 +86,7 @@ Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Doc
  
 (Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
 
-(-0.5, 2.0, 0.5) | (0.0, -1.0, 0.0, 0.0)
+(-0.1, 2.0, 0.5) | (0.0, -1.0, 0.0, 0.0)
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
@@ -97,10 +97,127 @@ Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Doc
 (Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
 
 Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 20.016468 ms
-System memory in use before: 51.2 MB.
-System memory in use after: 41.9 MB.
+UnloadTime: 19.820304 ms
+System memory in use before: 51.8 MB.
+System memory in use after: 42.5 MB.
 
 Unloading 125 unused Assets to reduce memory usage. Loaded Objects now: 8753.
-Total: 4.320266 ms (FindLiveObjects: 0.399315 ms CreateObjectMapping: 0.139304 ms MarkObjects: 1.060830 ms  DeleteObjects: 2.719722 ms)
+Total: 3.839999 ms (FindLiveObjects: 0.492672 ms CreateObjectMapping: 0.144774 ms MarkObjects: 1.076512 ms  DeleteObjects: 2.123851 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.712432 ms
+System memory in use before: 59.8 MB.
+System memory in use after: 56.7 MB.
+
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 85684.
+Total: 15.453353 ms (FindLiveObjects: 3.737161 ms CreateObjectMapping: 1.121367 ms MarkObjects: 7.227075 ms  DeleteObjects: 3.367019 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 33.402159 ms
+System memory in use before: 54.9 MB.
+System memory in use after: 55.7 MB.
+
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 27051.
+Total: 5.169959 ms (FindLiveObjects: 1.565538 ms CreateObjectMapping: 0.230108 ms MarkObjects: 3.315235 ms  DeleteObjects: 0.058712 ms)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 17.703016 ms
+System memory in use before: 51.6 MB.
+System memory in use after: 42.7 MB.
+
+Unloading 116 unused Assets to reduce memory usage. Loaded Objects now: 16329.
+Total: 5.738118 ms (FindLiveObjects: 0.649116 ms CreateObjectMapping: 0.220626 ms MarkObjects: 1.471088 ms  DeleteObjects: 3.396557 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Manifold.GlassToggle.ToggleLight (UnityEngine.Light light, Boolean onOff) [0x00003] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:83 
+  at Manifold.GlassToggle.Action () [0x0005b] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:40 
+  at Manifold.ToggleSwitch.OnTriggerEnter (UnityEngine.Collider other) [0x00018] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\ToggleSwitch.cs:13 
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/GlassToggle.cs Line: 83)
+
+(-0.3, 1.0, -1.5) | (0.0, -0.1, 0.0, 1.0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Manifold.LevelTransfer.Portal:StoreRelativeValues(Transform&) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:76)
+Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:60)
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Manifold.GlassToggle.ToggleLight (UnityEngine.Light light, Boolean onOff) [0x00003] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:83 
+  at Manifold.GlassToggle.Action () [0x0005b] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:40 
+  at Manifold.ToggleSwitch.OnTriggerEnter (UnityEngine.Collider other) [0x00018] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\ToggleSwitch.cs:13 
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/GlassToggle.cs Line: 83)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Manifold.GlassToggle.ToggleLight (UnityEngine.Light light, Boolean onOff) [0x00003] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:83 
+  at Manifold.GlassToggle.Action () [0x0005b] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:40 
+  at Manifold.ToggleSwitch.OnTriggerEnter (UnityEngine.Collider other) [0x00018] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\ToggleSwitch.cs:13 
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/GlassToggle.cs Line: 83)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Manifold.GlassToggle.ToggleLight (UnityEngine.Light light, Boolean onOff) [0x00003] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:83 
+  at Manifold.GlassToggle.Action () [0x0005b] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\GlassToggle.cs:40 
+  at Manifold.ToggleSwitch.OnTriggerEnter (UnityEngine.Collider other) [0x00018] in C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\ToggleSwitch.cs:13 
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/GlassToggle.cs Line: 83)
+
+(-0.1, 2.0, 0.5) | (0.0, -1.0, 0.0, 0.1)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Manifold.LevelTransfer.Portal:StoreRelativeValues(Transform&) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:76)
+Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:60)
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
+
+Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 9.500807 ms
+System memory in use before: 36.8 MB.
+System memory in use after: 34.8 MB.
+
+Unloading 63 unused Assets to reduce memory usage. Loaded Objects now: 15794.
+Total: 13.612852 ms (FindLiveObjects: 0.706370 ms CreateObjectMapping: 0.221720 ms MarkObjects: 12.265388 ms  DeleteObjects: 0.417914 ms)
+
+FATAL ERROR: Something went wrong with CreateManifold().
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Manifold.Manifold:Start() (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Manifold\Assets\Manifold.cs:88)
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Manifold/Assets/Manifold.cs Line: 88)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.518950 ms
+System memory in use before: 51.0 MB.
+System memory in use after: 51.7 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 27061.
+Total: 6.210369 ms (FindLiveObjects: 1.631179 ms CreateObjectMapping: 0.331487 ms MarkObjects: 4.091987 ms  DeleteObjects: 0.154985 ms)
+
+(-0.6, 1.0, -1.5) | (0.0, 0.0, 0.0, 1.0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Manifold.LevelTransfer.Portal:StoreRelativeValues(Transform&) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:76)
+Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:60)
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
+
+(-0.1, 2.1, -1.5) | (0.0, -0.1, 0.0, -1.0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Manifold.LevelTransfer.Portal:StoreRelativeValues(Transform&) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:76)
+Manifold.LevelTransfer.Portal:OnCollisionEnter(Collision) (at C:\Users\ronno\Documents\GAM415\AWalkInTheDark\Assets\Portal.cs:60)
+ 
+(Filename: C:/Users/ronno/Documents/GAM415/AWalkInTheDark/Assets/Portal.cs Line: 76)
 

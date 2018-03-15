@@ -33,7 +33,7 @@ using System.Collections;
 */
 namespace Manifold
 {
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class Manifold : MonoBehaviour
 {
 
